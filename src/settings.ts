@@ -208,9 +208,9 @@ export class OzanClearImagesSettingsTab extends PluginSettingTab {
             );
 
         new Setting(containerEl)
-            .setName('Delete logs')
+            .setName('Show cleanup logs')
             .setDesc(
-                'Turn off if you dont want to view the delete logs modal to pop up after deletion is completed. It wont appear if no image is deleted'
+                'Show the cleanup log modal after files or folders are deleted. Errors always open the log modal.'
             )
             .addToggle((toggle) =>
                 toggle.setValue(this.plugin.settings.logsModal).onChange((value) => {

@@ -72,7 +72,7 @@ You can run cleanup from the ribbon icon or from the Command Palette with `Ctrl/
 
 ![Command palette](docs/assets/command.png)
 
-If `Delete Logs` is enabled, the plugin shows a modal with information about deleted files:
+Enable `Show cleanup logs` in the plugin settings to show a modal with information about deleted files. Disable it to keep successful cleanup runs to a brief notice; cleanup errors still show their logs:
 
 ![Cleanup logs](docs/assets/logs-modal.png)
 

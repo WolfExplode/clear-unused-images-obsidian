@@ -14,6 +14,7 @@ All notable changes to this fork are documented in this file.
 
 ### Added
 
+- Added a `Show cleanup logs` toggle to suppress the log modal after successful cleanup while continuing to show logs for errors. (renamed “Delete logs” toggle because the naming was not clear)
 - Added an `Excluded file extensions` setting that always keeps the listed file types, whether or not they are linked from a note (case insensitive, leading dot optional).
 
 <img width="951" height="150" alt="image" src="https://github.com/user-attachments/assets/3ed7a705-5e30-4850-99d4-d8e64267bb9d" />

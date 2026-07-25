@@ -11,6 +11,7 @@ import {
 export interface OzanClearImagesSettings {
     deleteOption: DeleteOption;
     logsModal: boolean;
+    showProtectedFilesModal: boolean;
     excludedFolders: string;
     excludedExtensions: string;
     ribbonIcon: boolean;
@@ -34,6 +35,7 @@ export const normalizeDeleteOption = (deleteOption: unknown): DeleteOption => {
 export const DEFAULT_SETTINGS: OzanClearImagesSettings = {
     deleteOption: 'trash',
     logsModal: true,
+    showProtectedFilesModal: true,
     excludedFolders: '',
     excludedExtensions: '',
     ribbonIcon: false,
@@ -76,6 +78,15 @@ export class OzanClearImagesSettingsTab extends PluginSettingTab {
                         control: {
                             type: 'toggle',
                             key: 'logsModal',
+                        },
+                    },
+                    {
+                        name: 'Show protected files dialog',
+                        desc: 'Show the protected-files dialog when every unused file is excluded. A notification is always shown.',
+                        aliases: ['protected files', 'excluded files', 'cleanup dialog'],
+                        control: {
+                            type: 'toggle',
+                            key: 'showProtectedFilesModal',
                         },
                     },
                     {
@@ -154,6 +165,7 @@ export class OzanClearImagesSettingsTab extends PluginSettingTab {
         switch (key) {
             case 'ribbonIcon':
             case 'logsModal':
+            case 'showProtectedFilesModal':
             case 'autoCleanOnVaultLoad':
             case 'autoCleanEveryXMinutes':
             case 'clearEmptyFoldersAfterImageCleanup':
@@ -215,6 +227,18 @@ export class OzanClearImagesSettingsTab extends PluginSettingTab {
             .addToggle((toggle) =>
                 toggle.setValue(this.plugin.settings.logsModal).onChange((value) => {
                     this.plugin.settings.logsModal = value;
+                    void this.plugin.saveSettings();
+                })
+            );
+
+        new Setting(containerEl)
+            .setName('Show protected files dialog')
+            .setDesc(
+                'Show the protected-files dialog when every unused file is excluded. A notification is always shown.'
+            )
+            .addToggle((toggle) =>
+                toggle.setValue(this.plugin.settings.showProtectedFilesModal).onChange((value) => {
+                    this.plugin.settings.showProtectedFilesModal = value;
                     void this.plugin.saveSettings();
                 })
             );

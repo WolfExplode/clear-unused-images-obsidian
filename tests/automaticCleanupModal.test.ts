@@ -22,6 +22,7 @@ vi.mock('../src/util', async () => {
 import OzanClearImages from '../src/main';
 import * as Util from '../src/util';
 import { CleanupReviewModal } from '../src/reviewModal';
+import { DEFAULT_SETTINGS } from '../src/settings';
 
 const excludedFile = { path: 'protected.png' } as TFile;
 
@@ -42,7 +43,7 @@ describe('automatic cleanup with fully excluded unused images', () => {
             {} as ConstructorParameters<typeof OzanClearImages>[1]
         );
         plugin.app = {} as OzanClearImages['app'];
-        plugin.settings = {} as OzanClearImages['settings'];
+        plugin.settings = { ...DEFAULT_SETTINGS };
         return plugin;
     };
 
@@ -72,5 +73,14 @@ describe('automatic cleanup with fully excluded unused images', () => {
 
         expect(CleanupReviewModal).toHaveBeenCalledTimes(1);
         expect(promptMock).toHaveBeenCalledTimes(1);
+    });
+
+    it('does not open the protected-files dialog when disabled', async () => {
+        const plugin = createPlugin();
+        plugin.settings.showProtectedFilesModal = false;
+
+        await plugin.clearUnusedAttachments('image');
+
+        expect(CleanupReviewModal).not.toHaveBeenCalled();
     });
 });

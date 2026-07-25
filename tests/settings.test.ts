@@ -57,6 +57,7 @@ describe('plugin settings defaults', () => {
         expect(group.items?.map((item) => item.name)).toEqual([
             'Ribbon icon',
             'Delete logs',
+            'Show protected files dialog',
             'Clean images on vault load',
             'Clean images every X minutes',
             'Clear empty folders after image cleanup',
@@ -87,7 +88,9 @@ describe('plugin settings defaults', () => {
         await settingsTab.setControlValue('ribbonIcon', true);
         expect(plugin.settings.ribbonIcon).toBe(true);
         expect(plugin.refreshIconRibbon).toHaveBeenCalledTimes(1);
-        expect(plugin.saveSettings).toHaveBeenCalledTimes(3);
+        await settingsTab.setControlValue('showProtectedFilesModal', false);
+        expect(plugin.settings.showProtectedFilesModal).toBe(false);
+        expect(plugin.saveSettings).toHaveBeenCalledTimes(4);
     });
 
     it('rejects unknown or wrongly typed declarative setting values', async () => {

@@ -276,7 +276,7 @@ export default class OzanClearImages extends Plugin {
                     } are protected by your exclusions. Nothing was deleted.`
                 );
 
-                if (interactive) {
+                if (interactive && this.settings.showProtectedFilesModal) {
                     await new CleanupReviewModal(
                         this.app,
                         [],

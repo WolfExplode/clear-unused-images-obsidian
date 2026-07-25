@@ -44,8 +44,6 @@ export class CleanupReviewModal extends Modal {
         if (this.excludedFilePaths.length > 0) {
             const excludedDetails = contentEl.createEl('details');
             excludedDetails.addClass('unused-images-excluded');
-            // Expand automatically when the protected files are the only thing to review.
-            excludedDetails.open = !hasDeletableFiles;
             excludedDetails.createEl('summary', {
                 text: `${this.excludedFilePaths.length.toString()} ${
                     hasDeletableFiles ? 'other ' : ''
